@@ -1,0 +1,9 @@
+Django==4.1.7
+djangorestframework==3.15.1
+typesense==1.1.1
+pandas==2.3.1
+ujson==5.10.0
+python-dotenv==1.1.1
+watchtower==3.4.0
+tabulate==0.9.0
+matplotlib==3.10.5
