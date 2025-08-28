@@ -135,9 +135,38 @@ def transaction(request):
             collection_prefix = config["prefix"]
             
             for sharding_key, documents_to_upsert in documents_to_upsert_dict.items():
-                collection_name = collection_prefix + sharding_key
-
                 # check & create collection
+                collection_name = collection_prefix + sharding_key
+                schema = {
+                    'name': collection_name,
+                    'fields': [
+                        {'name': 'id', 'type': 'string', 'facet': False, 'optional': False},
+                        {'name': 'TRANID', 'type': 'int64', 'index': True, 'sort': True, 'optional': False},
+                        {'name': 'ORDER_ID', 'type': 'string', 'index': True, 'sort': True, 'optional': True},
+                        {'name': 'BILL_AMT', 'type': 'float', 'optional': True},
+                        {'name': 'CUR_ACTUAL', 'type': 'string', 'facet': True, 'optional': True},
+                        {'name': 'ACTUAL_AMT', 'type': 'float', 'optional': True},
+                        {'name': 'STATUS', 'type': 'string', 'facet': True, 'optional': True},
+                        {'name': 'TRANKEY', 'type': 'string', 'index': True, 'optional': True},
+                        {'name': 'CREATE_DATE', 'type': 'int64', 'sort': True, 'optional': True},
+                        {'name': 'CHARGEBACK_DATE', 'type': 'int64', 'sort': True, 'optional': True},
+                        {'name': 'PAID_DATE', 'type': 'int64', 'sort': True, 'optional': True},
+                        {'name': 'CHANNEL', 'type': 'string', 'facet': True, 'optional': True},
+                        {'name': 'MERCHANTID', 'type': 'string', 'index': True, 'facet': True, 'optional': True},
+                        {'name': 'BILLING_NAME', 'type': 'string', 'optional': True},
+                        {'name': 'BILLING_EMAIL', 'type': 'string', 'optional': True},
+                        {'name': 'BILLING_MOBILE', 'type': 'string', 'optional': True},
+                        {'name': 'BILLING_INFO', 'type': 'string', 'optional': True},
+                        {'name': 'APP_CODE', 'type': 'string', 'optional': True},
+                        {'name': 'STATUS_DESC', 'type': 'string', 'optional': True},
+                        {'name': 'REFUND_AMT', 'type': 'float', 'optional': True},
+                        {'name': 'HISTORY', 'type': 'string', 'optional': True},
+                        {'name': 'BIN', 'type': 'int32', 'optional': True},
+                        {'name': 'IP', 'type': 'string', 'facet': True, 'optional': True},
+                        {'name': 'DEF_AMT', 'type': 'float', 'optional': True}
+                    ],
+                    'default_sorting_field': 'TRANID'
+                }
                 func_collection.check_and_create_collection(process_id, client, collection_name)
 
                 # import upsert
