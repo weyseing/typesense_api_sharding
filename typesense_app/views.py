@@ -167,7 +167,7 @@ def transaction(request):
                     ],
                     'default_sorting_field': 'TRANID'
                 }
-                func_collection.check_and_create_collection(process_id, client, collection_name)
+                func_collection.check_and_create_collection(logger, process_id, client, collection_name, schema)
 
                 # import upsert
                 start_time = time.time()
