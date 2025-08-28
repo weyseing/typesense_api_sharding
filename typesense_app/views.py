@@ -16,6 +16,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view,authentication_classes
 
 from framework.authentication.api_key_auth import TypesenseKeyAuth
+from utils import func_collection
 
 # logger
 logger = logging.getLogger(__name__)
@@ -137,7 +138,7 @@ def transaction(request):
                 collection_name = collection_prefix + sharding_key
 
                 # check & create collection
-                check_and_create_collection(process_id, client, collection_name)
+                func_collection.check_and_create_collection(process_id, client, collection_name)
 
                 # import upsert
                 start_time = time.time()
