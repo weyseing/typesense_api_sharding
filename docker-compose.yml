@@ -1,11 +1,11 @@
 services:
-  typesense_upsert:
-    container_name: typesense_upsert
+  typesense_api_sharding:
+    container_name: typesense_api_sharding
     build: .
     volumes:
       - .:/app
     ports:
-      - 5555:8000 
+      - 5556:8000 
     env_file:
       - .env
     networks:
